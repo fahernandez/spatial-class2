@@ -1,0 +1,7 @@
+version: '2'
+services:
+    spatial-class2:
+        build: .
+        image: fahernandez/spatial-class2:latest
+        ports:
+            - '8787:8787'
