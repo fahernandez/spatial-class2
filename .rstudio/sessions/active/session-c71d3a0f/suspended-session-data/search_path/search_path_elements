@@ -1,0 +1,17 @@
+.GlobalEnv
+package:tmap
+package:ggspatial
+package:ggplot2
+package:here
+package:spData
+package:sf
+package:dplyr
+tools:rstudio
+package:stats
+package:graphics
+package:grDevices
+package:utils
+package:datasets
+package:methods
+Autoloads
+package:base

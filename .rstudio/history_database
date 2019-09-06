@@ -27,3 +27,232 @@
 1567657801104:library(ggplot2)
 1567657801298:library(ggspatial)
 1567657801481:library(tmap)
+1567660943025:1¿1
+1567695912998:library(dplyr)
+1567695912999:library(sf)
+1567695913000:library(spData)
+1567695913000:library(here)
+1567695913009:library(ggplot2)
+1567695913010:library(ggspatial)
+1567695913010:library(tmap)
+1567727718264:library(dplyr)
+1567727718265:library(sf)
+1567727718265:library(spData)
+1567727718266:library(here)
+1567727718266:library(ggplot2)
+1567727718267:library(ggspatial)
+1567727718268:library(tmap)
+1567728678053:library(dplyr)
+1567728678053:library(sf)
+1567728678054:library(spData)
+1567728678055:library(here)
+1567728678055:library(ggplot2)
+1567728678056:library(ggspatial)
+1567728678056:library(tmap)
+1567729996360:library(dplyr)
+1567729996361:library(sf)
+1567729996361:library(spData)
+1567729996362:library(here)
+1567729996362:library(ggplot2)
+1567729996363:library(ggspatial)
+1567729996363:library(tmap)
+1567730229551:list.files(system.file("shapes", package = "spData"))
+1567730246725:cycle_hire <- st_read(system.file("shapes/cycle_hire.geojson", package="spData"))
+1567730251425:cycle_hire
+1567730257524:class(cycle_hire)
+1567730265025:cycle_hire$name
+1567730323834:here()
+1567730373847:list.files(here())
+1567730404652:# leer archivos
+1567730404653:list.files(system.file("shapes", package = "spData"))
+1567730404826:cycle_hire <- st_read(system.file("shapes/cycle_hire.geojson", package="spData"))
+1567730541370:cycle_hire <- st_read(system.file("shapes/cycle_hire.geojson", package="spData"))
+1567730593959:cycle_hire <- cycle_hire %>%
+1567730593959:mutate(slots = nbikes +  nempty)
+1567730773644:cycle_hire
+1567730816656:ncol(cycle_hire)
+1567730836814:str(cycle_hire)
+1567730994428:data(lnd) # load the dataset in memory
+1567730995315:lnd
+1567731259012:cycle_hire
+1567731269935:#
+1567731269936:cycle_hire_27700 <- cycle_hire %>%
+1567731269937:st_transform(crs = st_crs(27700))
+1567731272767:cycle_hire_27700
+1567731406066:plot(london_27700$geometry)
+1567731408781:london_27700 <- lnd %>%
+1567731408783:st_transform(crs = st_crs(27700)) # Codigo de la proyeccion oficial de Gran Bretaña
+1567731409764:plot(london_27700$geometry)
+1567731455752:plot(cycle_hire_27700$geometry,
+1567731455753:col = "red",  # color
+1567731455754:cex = 0.5,    # size of symbol
+1567731455755:add = TRUE)
+1567731647296:# Plot no respeta solo el bbox
+1567731647296:cycle_hire_27700 %>% inner_join(
+1567731655424:# Plot no respeta solo el bbox
+1567731655425:cycle_hire_27700 %>% inner_join(
+1567731656968:london_27700 %>%
+1567731656968:st_drop_geometry(), # we don't need the geometry here
+1567731656969:by = c( "area" = "NAME")
+1567731666245:cycle_hire_27700 %>% inner_join(
+1567731666245:london_27700 %>%
+1567731666246:st_drop_geometry(), # we don't need the geometry here
+1567731666246:by = c( "area" = "NAME")
+1567731680092:namescycle_hire_27700cycle_hire_27700
+1567731682520:names(cycle_hire_27700)
+1567731690236:names(london_27700)
+1567731739378:cycle_hire_27700 %>% inner_join(
+1567731739379:london_27700 %>%
+1567731739380:st_drop_geometry(), # we don't need the geometry here
+1567731739381:by = c( "area" = "NAME")
+1567731739382:)
+1567731827686:ames(cycle_hire_27700)
+1567731832034:names(cycle_hire_27700)
+1567731892147:cycle_hire_27700 <- cycle_hire_27700 %>% st_join(london_27700 %>% select(GSS_CODE))
+1567731895402:names(cycle_hire_27700)
+1567731895968:cycle_hire_27700
+1567732026105:names(london_27700)
+1567732041509:str(london_27700)
+1567732146322:cycle_hire_27700 %>% filter(is.na(GSS_CODE))
+1567732309103:cycle_hire_by_area <- cycle_hire_27700 %>%
+1567732309111:filter(!is.na(GSS_CODE)) %>% # remove NAs
+1567732309112:st_drop_geometry() %>% # let's put geometry aside
+1567732309112:group_by(GSS_CODE) %>%  # group data by GSS_CODE
+1567732309113:tally(name = "count", sort= TRUE) # Aggregate
+1567732309935:cycle_hire_by_area
+1567732584085:?tally
+1567732605216:cycle_hire_by_area_sum <- cycle_hire_27700 %>%
+1567732605216:filter(!is.na(GSS_CODE)) %>% # remove NAs
+1567732605217:st_drop_geometry() %>% # let's put geometry aside
+1567732605217:group_by(GSS_CODE) %>%  # group data by GSS_CODE
+1567732605217:summarise(sum = sum(nbikes), count = n()) # Aggregate
+1567732607097:cycle_hire_by_area_sum
+1567732734420:aggregate(cycle_hire_27700["nbikes"], by = list(cycle_hire_27700$"GSS_CODE"),
+1567732734421:FUN = sum, na.rm = TRUE)
+1567733031189:boroughs_centroids <- london_27700 %>%
+1567733031190:select(NAME, GSS_CODE) %>% # only keep useful columns
+1567733031190:st_centroid()
+1567733036094:aggregate(cycle_hire_27700["nbikes"], by = list(cycle_hire_27700$"GSS_CODE"),
+1567733036095:FUN = sum, na.rm = TRUE)
+1567733042954:boroughs_centroids <- london_27700 %>%
+1567733042955:select(NAME, GSS_CODE) %>% # only keep useful columns
+1567733042956:st_centroid()
+1567733810138:london_27700 %>%
+1567733810139:filter(NAME == "Wandsworth") %>%
+1567733810140:st_contains(cycle_hire_27700)
+1567733943570:london_27700[unlist(cycle_hire_27700 %>% filter(id == "614") %>% st_within(london_27700)),]
+1567733955497:?st_within
+1567733999076:london_27700 %>% left_join(cycle_hire_by_area_sum) %>%
+1567733999077:st_write(
+1567733999078:dsn = here("foss4g_R_workshop.gpkg"),
+1567733999079:layer = "london_boroughs_27700",
+1567733999079:layer_options = "OVERWRITE=true")
+1567734173347:london_27700 %>% left_join(cycle_hire_by_area_sum) %>%
+1567734173348:st_write(
+1567734173349:dsn = here("foss4g_R_workshop.gpkg"),
+1567734173350:layer = "london_boroughs_27700",
+1567734173351:layer_options = "OVERWRITE=true")
+1567734177204:boroughs_centroids %>%
+1567734177204:left_join(cycle_hire_by_area_sum) %>%
+1567734177204:st_write(
+1567734177205:dsn = here("foss4g_R_workshop.gpkg"),
+1567734177205:layer = "boroughs_centroids_27700",
+1567734177205:layer_options = "OVERWRITE=true")
+1567734181962:cycle_hire_27700 %>%
+1567734181963:left_join(cycle_hire_by_area_sum) %>%
+1567734181963:st_write(
+1567734181963:dsn = here("foss4g_R_workshop.gpkg"),
+1567734181964:layer = "cycle_hire_27700",
+1567734181964:layer_options = "OVERWRITE=true")
+1567734183815:list.files(here())
+1567734186632:st_layers(dsn = here("foss4g_R_workshop.gpkg"))
+1567734217436:cycle_hire_27700 %>% filter(id == "614")
+1567734228153:cycle_hire_27700 %>% filter(id == "614") %>%
+1567734228155:st_within(london_27700)
+1567734558195:list.files(here())
+1567734558856:st_layers(dsn = here("foss4g_R_workshop.gpkg"))
+1567734580552:st_layers(dsn = here("foss4g_R_workshop.gpkg"))
+1567734647915:library(sf)
+1567734647916:library(here)
+1567734647916:library(dplyr)
+1567734647917:library(ggplot2)
+1567734647917:library(ggspatial)
+1567734647917:library(tmap)
+1567734661704:st_layers(here("foss4g_R_workshop.gpkg"))
+1567734684079:st_layers(here("foss4g_R_workshop.gpkg"))
+1567734686567:library(sf)
+1567734686569:library(here)
+1567734686570:library(dplyr)
+1567734686571:library(ggplot2)
+1567734686572:library(ggspatial)
+1567734686573:library(tmap)
+1567734899212:ad(
+1567734899213:dsn = here("foss4g_R_workshop.gpkg"),
+1567734899214:layer = "cycle_hire_27700")
+1567734905450:cycle_hire_27700 <- st_read(
+1567734905452:dsn = here("foss4g_R_workshop.gpkg"),
+1567734905453:layer = "cycle_hire_27700")
+1567734923576:london_boroughs_27700 <- st_read(
+1567734923577:dsn = here("foss4g_R_workshop.gpkg"),
+1567734923578:layer = "london_boroughs_27700")
+1567734923602:boroughs_centroids_27700<- st_read(
+1567734923603:dsn = here("foss4g_R_workshop.gpkg"),
+1567734923603:layer = "boroughs_centroids_27700")
+1567734975484:london_boroughs_27700 %>% # pipe data to
+1567734975484:ggplot() +                # a ggplot function
+1567734975485:geom_sf(                # precise that it will be a spatial geometry
+1567734975485:aes(                  # provide some aesthetics
+1567734975485:geometry = geom,    # the geometry column (usually auto detected)
+1567734975486:fill = count)       # we want the polygon color to change following the count
+1567734975486:) -> g # store it in g
+1567734975504:g # display g
+1567735034560:london_boroughs_27700
+1567735085088:g <- g +
+1567735085089:scale_fill_viridis_c(
+1567735085090:guide = guide_legend(title = "Hires") # legend title
+1567735085091:)
+1567735085112:g
+1567735117268:g <- g +
+1567735117269:scale_fill_viridis_c(
+1567735117269:guide = guide_legend(title = "Hires") # legend title
+1567735117270:)
+1567735117279:g
+1567735132999:g <- g +
+1567735132999:theme_bw() +
+1567735133000:ggtitle("Cycle hire points", subtitle = "in London's boroughs")
+1567735133005:g
+1567735199646:ggplot() +  geom_sf(data = london_boroughs_27700) + # add boroughs shape to the map
+1567735199646:geom_sf(data = boroughs_centroids_27700, # add the boroughs centroids>
+1567735199647:aes(size = boroughs_centroids_27700$count), # fix size of points (by area)
+1567735199647:color = 'red', alpha = 1/5)+ # set points colour and transparency
+1567735199647:ggtitle("Cycle hire points", subtitle = "in London's boroughs") + # set the map title
+1567735199648:theme(legend.position = 'left') + # Legend position
+1567735199648:scale_size_area(name = 'Hires',max_size=10) # 0 value means 0 area + legend title
+1567735419558:ggplot() +  geom_sf(data = london_boroughs_27700) + # add boroughs shape to the map
+1567735419558:geom_sf(data = boroughs_centroids_27700, # add the boroughs centroids>
+1567735419558:aes(size = boroughs_centroids_27700$count), # fix size of points (by area)
+1567735419559:color = 'red', alpha = 1/5)+ # set points colour and transparency
+1567735419559:ggtitle("Cycle hire points", subtitle = "in London's boroughs") + # set the map title
+1567735419559:theme(legend.position = 'left') + # Legend position
+1567735419560:scale_size_area(name = 'Hires',max_size=10) # 0 value means 0 area + legend title
+1567735687618:tm_shape(london_boroughs_27700) +
+1567735687619:tm_polygons("count")
+1567735841473:tmap_mode("view")
+1567735845161:tm_shape(london_boroughs_27700) +
+1567735845162:tm_polygons("count")
+1567735886003:tmap_mode("plot")
+1567735886004:tm1 <- tm_shape(london_boroughs_27700) + tm_polygons("count", convert2density = TRUE)
+1567735886005:tm2 <- tm_shape(london_boroughs_27700) + tm_bubbles(size = "count")
+1567735886006:tmap_arrange(tm1, tm2)
+1567735906510:tm1 <- tm_shape(london_boroughs_27700) + tm_polygons("count", convert2density = TRUE)
+1567735906511:tm2 <- tm_shape(london_boroughs_27700) + tm_bubbles(size = "count")
+1567735906514:tmap_arrange(tm1, tm2)
+1567735926473:tm_shape(london_boroughs_27700) +
+1567735926473:tm_polygons("count", convert2density = TRUE) +
+1567735926474:tm_bubbles(size = "count", col = "red") +
+1567735926474:tm_scale_bar(position=c("left", "bottom")) +
+1567735926474:tm_compass(size = 2, position=c("right", "top"))
+1567735961192:tmap_mode("view")
+1567735961195:tm_basemap("Stamen.Watercolor") +
+1567735961196:tm_shape(london_boroughs_27700) + tm_polygons("count", convert2density = TRUE) + tm_bubbles(size = "count", col = "red") +
+1567735961197:tm_tiles("Stamen.TonerLabels")
